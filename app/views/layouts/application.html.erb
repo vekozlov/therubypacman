@@ -46,13 +46,13 @@
         <table id="count">
           <tr>
             <td class="logos">
-              <%= image_tag 'pacman.png' %>
+              <%= image_tag 'pacman.png', class: "pacman" %>
               <div class="rubyman">
                 0
               </div>
             </td>
             <td class="logos">
-              <%= image_tag 'meduze.png' %>
+              <%= image_tag 'meduze.png', class: "meduze" %>
               <div class="enemycount">
                 0 
               </div>
@@ -71,14 +71,7 @@
     </div>
 
     <div id="right">
-      <div class="battlefield">
-        <table id="wormfield"></table>
-      </div>
-
-      <div class="staff">
-        <div id="plugins"></div>
-        <p class="log"></p>
-      </div>
+      <table id="wormfield"></table>
     </div>
 
     <div class="sources">
@@ -89,6 +82,10 @@
       <%= image_tag 'blood.png', id: "blood_source" %>
     </div>
 
+    <div class="staff">
+      <div id="plugins"></div>
+      <p class="log"></p>
+    </div>
   </div>
 </body>
 </html>

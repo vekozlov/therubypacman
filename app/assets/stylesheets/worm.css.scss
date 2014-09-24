@@ -31,7 +31,9 @@ header {
 	h1 {
 		font-family: "Trebuchet MS";
 		color: $header;
+	 	text-shadow: 1px 1px 1px $text;
 		text-align: center;
+		text-transform: uppercase;
 	}
 }
 
@@ -51,18 +53,99 @@ header {
 		margin: 0 auto;
 		text-align: center;
 		&.text {
-			margin-bottom: 25px;
+			margin-bottom: 15px;
 		}
-		&.w {margin-bottom: 30px;}
+		&.w {margin-bottom: 0px;}
 		&.sad {margin-bottom: 10px;}
+
+		.punch {
+		  color: #3C3C43;
+		  padding: 5px;
+		  font-size: 3rem;
+		  margin: 5px 5px;
+		  text-align: center;
+		  text-decoration: none;
+		  text-shadow: 1px 1px 0px #939dc2;
+		  -webkit-background-clip: padding-box;
+		}
+
+	  .punch:hover {
+	    text-decoration: none;
+	    cursor: pointer;
+	  }
+	  .punch:active, .punch.pressed {
+	    margin-top: 58px; 
+	  }
+		    
+		a.wsad {
+		  width: 40px;
+		  height: 40px;
+		}
 	}
 }
 
 #right {
 	position: absolute;
-	left: 400px;
-	top: 50px;
+	left: 300px;
+	top: 0;
 	bottom: 0;
+	right: 0;
+
+	#wormfield {
+		@include shadow;
+
+		margin: 40px auto;
+		border-collapse: collapse;
+
+		td {
+			width: 22px;
+			height: 22px;
+			min-width: 22px;
+			min-height: 22px;
+			max-width: 22px;
+			max-height: 22px;
+			border: 1px solid $border;
+			text-align: center;
+			background: $field;
+
+
+			img  { 
+				height:18px;
+				width:18px;
+				margin: 0;
+				padding: 0;
+
+				&.up { 
+					-webkit-transform: rotate(-90deg); 
+					-moz-transform: rotate(-90deg); 
+					-ms-transform: rotate(-90deg); 
+					-o-transform: rotate(-90deg); 
+					filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+				}
+				&.down { 
+					-webkit-transform: rotate(90deg); 
+					-moz-transform: rotate(90deg); 
+					-ms-transform: rotate(90deg); 
+					-o-transform: rotate(90deg); 
+					filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+				}
+				&.right { 
+					-webkit-transform: rotate(0deg); 
+					-moz-transform: rotate(0deg); 
+					-ms-transform: rotate(0deg); 
+					-o-transform: rotate(0deg); 
+					filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+				}
+				&.left { 
+					-webkit-transform: rotate(-180deg); 
+					-moz-transform: rotate(-180deg); 
+					-ms-transform: rotate(-180deg); 
+					-o-transform: rotate(-180deg); 
+					filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=4);
+				}
+			}
+		}
+	}
 }
 
 .infoboard {
@@ -85,15 +168,12 @@ header {
 		display: block;
 		margin: 0 auto 10px;
 		color: #fff;
-		width: 60%;
+		width: 30%;
 		text-decoration: none;
 		padding: 10px 20px;
 		vertical-align: middle;
-		height: 30px;
 		background: $field;
 		color: #555;
-
-
 
 		* {
 			vertical-align: middle;
@@ -103,6 +183,10 @@ header {
 			width: 20px;
 			height: 20px;
 		}
+
+		&:hover {
+			background: #ccc;
+		}
 	}
 }
 
@@ -111,79 +195,35 @@ header {
 
 	#count {
 	 width: 100%;
-	 .logos {
+	  .logos {
 	 		text-align: center;
 	 		img {
-			 	height:50px;
-			 	width:50px;
+
+				&.pacman {
+					height: 37px;
+					width: 37px;
+				}
+
+				&.meduze {
+				 	height:50px;
+				 	width:50px;
+				}
 			}
 		}
-	 .rubyman, .enemycount {
-	 	text-align: center;
-	 	color: white;
-	 	&.died {
-	 		text-decoration:line-through;
-	 	}
-	 }
-	}
-}
+		.rubyman, .enemycount {
+		 	text-align: center;
+		 	color: $header;
+		 	font-size: 3rem;
+		 	text-shadow: 2px 2px 1px $text;
 
-
-#wormfield {
-	margin: 0 auto;
-	border-collapse: collapse;
-
-	@include shadow;
-
-	td {
-		width: 22px;
-		height: 22px;
-		min-width: 22px;
-		min-height: 22px;
-		max-width: 22px;
-		max-height: 22px;
-		border: 1px solid $border;
-		text-align: center;
-		background: $field;
-
-
-		img  { 
-			height:18px;
-			width:18px;
-			margin: 0;
-			padding: 0;
-
-			&.up { 
-				-webkit-transform: rotate(-90deg); 
-				-moz-transform: rotate(-90deg); 
-				-ms-transform: rotate(-90deg); 
-				-o-transform: rotate(-90deg); 
-				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-			}
-			&.down { 
-				-webkit-transform: rotate(90deg); 
-				-moz-transform: rotate(90deg); 
-				-ms-transform: rotate(90deg); 
-				-o-transform: rotate(90deg); 
-				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-			}
-			&.right { 
-				-webkit-transform: rotate(0deg); 
-				-moz-transform: rotate(0deg); 
-				-ms-transform: rotate(0deg); 
-				-o-transform: rotate(0deg); 
-				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
-			}
-			&.left { 
-				-webkit-transform: rotate(-180deg); 
-				-moz-transform: rotate(-180deg); 
-				-ms-transform: rotate(-180deg); 
-				-o-transform: rotate(-180deg); 
-				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=4);
-			}
+		 	&.died {
+		 		text-decoration:line-through;
+		 	}
 		}
 	}
 }
+
+
 
 .credits {
 	padding: 50px 0;
