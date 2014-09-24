@@ -1,0 +1,1 @@
+Rubyman::Application.config.secret_key_base = "3c317c77e5d23083773f98c4b30bfae96c40945a9ecde81550e5da9751a2c5fbda3cb6e8293bf8297a07b82fcffff8fbd5d222281e68c0cf42641da439efe448"
