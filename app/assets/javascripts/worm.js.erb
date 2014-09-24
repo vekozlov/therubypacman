@@ -68,9 +68,14 @@ function go(){
 
   if       (nextCell.hasClass('deadzone')){game.end()}
   else if  (nextCell.hasClass('foodzone')){worm.eatFood(nextCell)}
-  else if  (nextCell.hasClass('enemy')){superenemy.dies(); worm.kill()}// если игрок сталкивается с врагом, они оба погибают
-}  
+  // если игрок сталкивается с врагом, они оба погибают
+  else if  (nextCell.hasClass('enemy')){pacmanFaceTheEnemy()}
+}
 
+function pacmanFaceTheEnemy(){
+  superenemy.dies()
+  worm.kill()
+}
 
 //========================================================================
 //  Игра и ее основные функции 
@@ -230,7 +235,6 @@ function createCleverEnemy(){
     this.x = function(){return $('td.enemy').attr('id')}
     this.y = function(){return $('td.enemy').parent().attr('id')} 
     this.direction = function(){return $('td.enemy img').attr('direction')}
-    
 
     // один шаг врага
     this.step = function(){ 
@@ -269,13 +273,13 @@ function createCleverEnemy(){
       $('td.shift').children('img').removeClass('enemy').addClass('shift').attr('direction','').fadeOut(1000).queue(function(){
         $(this).parent().removeClass('shift')
         $(this).remove()
-      })   
+      })
       
       // проверяем, не наступил ли враг на мину или не съел ли рубин
       nextEnemyCell = $('tr[id='+newY+'] td[id='+newX+']')
-       if (nextEnemyCell.hasClass('deadzone')){that.dies()}
-       else if (nextEnemyCell.hasClass('rubyzone')){that.eats(nextEnemyCell)} 
-       else if (nextEnemyCell.hasClass('selected')){that.dies(); worm.kill()}   
+      if (nextEnemyCell.hasClass('deadzone')){that.dies()}
+      else if (nextEnemyCell.hasClass('rubyzone')){that.eats(nextEnemyCell)} 
+      else if (nextEnemyCell.hasClass('selected')){that.dies(); worm.kill()}
     }//.step end 
     
     //запустить автоматическое движение врага каждую 1 секунду
@@ -303,7 +307,7 @@ function createCleverEnemy(){
     this.changeDirection = function(){ 
       randomNumber = (Math.floor(Math.random() * (directions.length - 0)) + 0).toString();
       $('td.enemy img').attr('direction', directions[randomNumber]); 
-    } 
+    }
         
     // система уклонения от бомб - враг меняет направление, если следующая клетка содержит бомбу
     // НО! он меняет направление один раз. поэтому если в измененном направлении тоже есть бомба,
