@@ -237,15 +237,47 @@ header {
 }
 
 div.attention {  
-	@include shadow; 
-	width: 60%;
-	color: $notice;
-	background: $field;
-	text-align: center; 
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index:200;
-	min-height: 30px;
-	padding: 10px 20px;
-	margin: 15px auto;
+
+	.content {
+		position: relative;
+		margin-top: 40%;
+		margin: 200px auto;
+		width: 60%;
+		text-align: center; 
+		z-index: 200;
+
+		h1 {
+			font-size: 3rem;
+			color: $header;
+			text-shadow: 2px 2px 0px $text;
+		}
+		p {
+			position: relative;
+			color: $header;
+			text-shadow: 2px 2px 0px $text;
+			width: 200px;
+			margin: 0 auto;
+			z-index: 200;
+			text-align: center;
+		}
+	}
+
+	.backdrop {
+		position: absolute;
+		background: #333;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: 100;
+		opacity: 0.8;
+	}
 }
 
 .sources {

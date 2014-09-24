@@ -1,8 +1,7 @@
 $(document).ready(function(){ 
-
   fieldSize = 25
   rubiesQuantity = 45
-  bombsQuantity = 35
+  bombsQuantity = 105
   game.prepare(fieldSize) 
   enemyRuns = 0
   killed = 0
@@ -16,28 +15,26 @@ meduze_source = function(){ return $("#meduze_source").attr("src")}
 bomb_source = function(){ return $("#bomb_source").attr("src")}
 blood_source = function(){ return $("#blood_source").attr("src")}
 
-
 function enableButtons(e){
   $("body").keypress(function (e) { 
     //listening to WSAD buttons and changing moving direction, rotation 
-    if (e.which == 119)  { step = {'x' : 0, 'y' : -1}; run = 1; rotation = 'up' }
-    else if (e.which == 115) { step = {'x' : 0, 'y' : 1}; run = 1;  rotation = 'down' }
-    else if (e.which == 97) { step = {'x' : -1, 'y' : 0}; run = 1;  rotation = 'left' }
-    else if (e.which == 100) { step = {'x' : 1, 'y' : 0}; run = 1; rotation = 'right' }  
-    else { step = {'x' : 0, 'y' : 0} }  
+    if      (e.which == 119)  { step = {'x' : 0,  'y' : -1}; run = 1; rotation = 'up'     }
+    else if (e.which == 115)  { step = {'x' : 0,  'y' : 1 }; run = 1; rotation = 'down'   }
+    else if (e.which == 97 )  { step = {'x' : -1, 'y' : 0 }; run = 1; rotation = 'left'   }
+    else if (e.which == 100)  { step = {'x' : 1,  'y' : 0 }; run = 1; rotation = 'right'  }  
+    else                      { step = {'x' : 0,  'y' : 0 }}  
     //to start the worm only when WSAD buttons are pressed.
     if(run == 1){
       running == 0 ? worm.run() : {}
       running = 1 
       //if worm dies buttons are being disabled
       if (killed != 1){
-//        go()
+       // go()
       } 
     }
   }); 
 } // enable buttons end
 
- 
 function enableActions(){  
   $('a').click(function(){
     m = $(this).attr('id')
@@ -48,7 +45,11 @@ function enableActions(){
       break
       case'end':game.end()
       break
-    }})    
+    }})
+
+  $(".attention").click(function(){
+    $(".attention").fadeOut()
+  })  
 } // enable actions end
  
 function go(){  
@@ -64,14 +65,10 @@ function go(){
   newY = parseInt(thisCellXY.y) + parseInt(step.y)
     if (newY == outLineMax){newY = 0} else if (newY == outLineMin){newY = lastId}
   nextCell = $('table#wormfield tr:eq(' + newY + ') td:eq(' + newX + ')').addClass('selected').removeClass('myshift').html('<img src=\''+pacman_source()+'\' id=\'worm\' class=\''+rotation+'\'>') 
-//////  nextCellclass = $('table#wormfield tr:eq(' + newY + ') td:eq(' + newX + ')')
 
-   if (nextCell.hasClass('deadzone')){game.end()}
-   else if (nextCell.hasClass('foodzone')){
-     worm.eatFood(nextCell)
-   } 
-   // если игрок сталкивается с врагом, они оба погибают
-  else if (nextCell.hasClass('enemy')){superenemy.dies(); worm.kill()} 
+  if       (nextCell.hasClass('deadzone')){game.end()}
+  else if  (nextCell.hasClass('foodzone')){worm.eatFood(nextCell)}
+  else if  (nextCell.hasClass('enemy')){superenemy.dies(); worm.kill()}// если игрок сталкивается с врагом, они оба погибают
 }  
 
 
@@ -79,13 +76,12 @@ function go(){
 //  Игра и ее основные функции 
 //========================================================================
 
-
 game = new Game()
   
 function Game(){
 
   this.prepare = function(e){ 
-     fieldSize = e
+    fieldSize = e
     game.buildWormField(fieldSize) 
     game.populate(fieldSize)
     enableButtons()  
@@ -97,9 +93,9 @@ function Game(){
   this.populate = function (e){
     startCell = $('table#wormfield tr:first td:first').addClass('selected')
     rotation = 'up' 
-    worm = '<img src=\''+ pacman_source() +'\' id=\'worm\' class=\''+rotation+'\'>'
-    bomb = '<img class=\"bomb\" src=\''+bomb_source()+'\'>' 
-    food = '<img class=\"chicken\"  src=\''+ruby_source()+'\'>'
+    worm = '<img class=\''+rotation+'\' src=\''+ pacman_source() +'\' id=\'worm\'>'
+    bomb = '<img class=\"bomb\"         src=\''+bomb_source()+'\'>' 
+    ruby = '<img class=\"chicken\"      src=\''+ruby_source()+'\'>'
     startCell.html(worm)
     
     deadZones = []
@@ -110,23 +106,24 @@ function Game(){
       deadZone.html(bomb)  
       deadZones.push(deadZone)}
       
-    foodZones = [] 
+    rubyZones = [] 
     for (i = 0; i < rubiesQuantity; i++) { 
       randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
-      foodZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('foodzone')
-      foodZone.html(food)
-      foodZones.push(foodZones)}
+      rubyZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('rubyzone')
+      rubyZone.html(ruby)
+      rubyZones.push(rubyZones)
+    }
     
     // проверка на склеивание зон - если одна и та же клетка имеет класс как еда и бомба
     // оставить что-то одно
-    $('td.foodzone.deadzone').removeClass('deadzone')
+    $('td.rubyzone.deadzone').removeClass('deadzone')
     
     outLineMin = - 1
-     outLineMax = e
-     lastId = e - 1
-     running = 0
-     worm = new Worm()
+    outLineMax = e
+    lastId = e - 1
+    running = 0
+    worm = new Worm()
    } // populate end
 
   this.buildWormField = function (e){ 
@@ -151,13 +148,13 @@ function Game(){
   
   this.reset = function(e){ 
      worm.stop()
+     superenemy.stop()
      $('#wormfield tr').remove() 
      game.prepare(fieldSize) 
      enemyRuns = 0
      enemyKilled = 0
-     superenemy.stop()
      game.start()    
-  } // reset end
+  }// reset end
   
   this.end = function(e){ 
     worm.kill()
@@ -174,22 +171,21 @@ function Game(){
 //  Пакман 
 //========================================================================
 
-
 function Worm(){
 
   this.eatFood = function(e){
-    e.removeClass('foodzone')
+    e.removeClass('rubyzone')
     rubymanCount = parseInt($('#count .rubyman').text()) + 1
     $('#count .rubyman').text(rubymanCount)
     checkCount()
-    if ($('#wormfield tr td.foodzone img').length == 0){
+    if ($('#wormfield tr td.rubyzone img').length == 0){
       game.victory()
     }
     
   }
 
   this.run = function(){
-    runningWorm = setInterval(go, speed)
+    that.runningWorm = setInterval(go, speed)
     running = 1
   }
   
@@ -204,11 +200,10 @@ function Worm(){
     killed = 1
   } 
   this.stop = function(){
-    clearInterval(runningWorm)
+    clearInterval(that.runningWorm)
     running = 0
   }   
 } // Worm end
-
 
 //========================================================================
 //  Умный враг
@@ -219,11 +214,9 @@ function Worm(){
 //========================================================================
 
 function createCleverEnemy(){
- 
   function Enemy(name){
-    
     that = this
-    
+
     //создать врага на поле
     this.create = function(){ 
       enemy = '<img class=\"enemy\" src=\''+meduze_source()+'\' direction=\'up\'>' 
@@ -238,6 +231,7 @@ function createCleverEnemy(){
     this.y = function(){return $('td.enemy').parent().attr('id')} 
     this.direction = function(){return $('td.enemy img').attr('direction')}
     
+
     // один шаг врага
     this.step = function(){ 
          
@@ -264,10 +258,10 @@ function createCleverEnemy(){
       
       // если следующая ечейка с бомбой - то враг 1 раз меняет направление движения
       nextEnemyCell = $('tr[id='+newY+'] td[id='+newX+']') 
-       if (nextEnemyCell.hasClass('deadzone')){ 
-         this.avoidBomb()
-       } 
-      
+      if (nextEnemyCell.hasClass('deadzone')){
+        that.avoidBomb()
+      }
+
       // перемещаем врага на 1 клетку
       enemyOld = $('td.enemy').toggleClass('old').html() 
       $('tr[id='+newY+'] td[id='+newX+']').toggleClass('new').removeClass('myshift shift').html(enemyOld).toggleClass('enemy new')  
@@ -280,14 +274,16 @@ function createCleverEnemy(){
       // проверяем, не наступил ли враг на мину или не съел ли рубин
       nextEnemyCell = $('tr[id='+newY+'] td[id='+newX+']')
        if (nextEnemyCell.hasClass('deadzone')){that.dies()}
-       else if (nextEnemyCell.hasClass('foodzone')){that.eats(nextEnemyCell)} 
+       else if (nextEnemyCell.hasClass('rubyzone')){that.eats(nextEnemyCell)} 
        else if (nextEnemyCell.hasClass('selected')){that.dies(); worm.kill()}   
     }//.step end 
     
-      
     //запустить автоматическое движение врага каждую 1 секунду
     this.run   = function (){
-      runningEnemy = setInterval(this.step, 300);} 
+      runningEnemy = setInterval(this.step, 300);
+      enemyRuns = 1
+      changingDirectionsInitiated = 0
+    } 
       
     // тут можно написать алгоритм, чтобы он не хаотично перемещался по пространству, а целенаправленно собирал рубиниы, составляя конкуренцию игроку.  
       //  ветка А: выбирается случайным образом из оставшихся
@@ -302,14 +298,12 @@ function createCleverEnemy(){
         //  б. проверить координаты каждого - у кого меньше сумма разниц координат x и y - назначается целевой 
         //  в. при выборе направления движения производится проверка - если расстояние между X или Y цели и врага сокращается, то направление остается, если нет, то нет, то выбирается другое направление
         //  г. когда враг ест рубин, выбирается другая цель -> пункт а. 
-       
-      
-       
+             
     //изменить направление движения врага
     this.changeDirection = function(){ 
-          randomNumber = (Math.floor(Math.random() * (directions.length - 0)) + 0).toString();
-          $('td.enemy img').attr('direction', directions[randomNumber]); 
-        } 
+      randomNumber = (Math.floor(Math.random() * (directions.length - 0)) + 0).toString();
+      $('td.enemy img').attr('direction', directions[randomNumber]); 
+    } 
         
     // система уклонения от бомб - враг меняет направление, если следующая клетка содержит бомбу
     // НО! он меняет направление один раз. поэтому если в измененном направлении тоже есть бомба,
@@ -332,7 +326,7 @@ function createCleverEnemy(){
         y = parseInt(this.y())
         direction = this.direction()   
           
-      //определяем новые координаты 
+      //определяем новые координаты
       switch(direction){
         case'up': newY = y - 1; newX = x
         break
@@ -342,22 +336,27 @@ function createCleverEnemy(){
         break
         case'right': newY = y; newX = x + 1
         break}  
-      
+
+
       // +++++++++++++++++++++ 
       // Можно сократить код, просто передавай новое значение в уже существующую функцию step()  
     }      
     
-    //запустить автоматическое изменение направления движения через 5 секунд
+    //запустить автоматическое изменение направления движения через 2 секунды
     this.intervalChangeDirections = function(){
-      enemyChangesDirections = setInterval(this.changeDirection, 2000)}    
+      if (changingDirectionsInitiated == 0) {
+        enemyChangesDirections = setInterval(this.changeDirection, 2000)
+        changingDirectionsInitiated = 1
+      }
+    }
     
     // смерть врага
     this.dies = function(){
       this.stop()
       $('td.enemy img').attr('src', 'assets/blood.png') 
       $('#count .enemycount').addClass('died')
-       enemyKilled = 1
-       message("Enemy Died. You win!")
+      enemyKilled = 1
+      message("Enemy Died. You win!")
     }
     
     // остановить ход врага
@@ -368,7 +367,7 @@ function createCleverEnemy(){
     
     // враг кушает рубин и зарабатывает очко
     this.eats = function(e){
-      e.removeClass('foodzone')
+      e.removeClass('rubyzone')
       enemyCount = parseInt($('#count .enemycount').text()) + 1
       $('#count .enemycount').text(enemyCount)
       checkCount()
@@ -378,19 +377,18 @@ function createCleverEnemy(){
   
   superenemy = new Enemy('Mr. Evil')
   superenemy.create()  
-  superenemy.intervalChangeDirections()  
+  superenemy.intervalChangeDirections()
 }
  
 function checkCount(){
-  
-  if ($('.foodzone').length == 0){
+  if ($('.rubyzone').length == 0){
     worm.stop()
     superenemy.stop()
-    rubymanPoints =  $('#count .rubyman').text()
-    enemyPoints = $('#count .enemycount').text()
-    if (enemyPoints > rubymanPoints) {message('You loose. Try again.')}
-    else if (enemyPoints < rubymanPoints) {message('Congratulations! You win!')}
-    else if (enemyPoints == rubymanPoints) {message('You have equal number of points... Try again.')}
+    rubymanPoints = $('#count .rubyman').text()
+    enemyPoints   = $('#count .enemycount').text()
+    if      (enemyPoints >  rubymanPoints ) {message('You loose. Try again.')                         }
+    else if (enemyPoints <  rubymanPoints ) {message('Congratulations! You win!')                     }
+    else if (enemyPoints == rubymanPoints ) {message('You have equal number of points... Try again.') }
   }
 
 }
@@ -402,16 +400,11 @@ function countReset(){
 
 // выводит сообщения в левой парели
 function message(x){
-//  $('p.log').append(x + ' ')
-  $('div.attention').fadeIn('slow').text(x)
-} 
+  $('.attention').fadeIn('slow')
+  $('.attention .content h1').text(x)
+}
 
 //  определяет координаты ячейки, переданной в z
 function myXY(z) { 
   return {'x': z.attr('id'), 'y': z.parent().attr('id')}
-}   
-
-
-
-
-
+}
