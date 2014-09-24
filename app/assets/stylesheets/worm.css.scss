@@ -1,117 +1,14 @@
-body {
-	background: #666;
-	font-family: "Trebuchet MS";
-	color: white;
-}
+$background: #4D5C74;
+$field: #DBDBDA;
+$header: #252225;
+$text: #3C3C43;
+$notice: #A62D36;
 
-header {
-	h1 {
-		font-family: "Trebuchet MS";
-		color: white;
-		text-align: center;
-	}
-}
+$border: #bbb;
+$link: #DBDBDA;
 
-.info {
-	text-align: center;
-}
+@mixin shadow {
 
-.wormbuttons {
-	text-align: center;
-	a {
-		display: inline-block;
-		margin-right: 15px;
-		color: #fff;
-		text-decoration: none;
-	}
-}
-
-.scoreboard{
-	width: 200px;
-	margin: 0 auto;
-}
-
-
-
-a.worm img {
-	width: 20px;
-	margin: 5px;
-}
-
-a.worm { 
-	text-align:center;
-	margin: 5px;
-	height: 30px;
-	width: 120px;
-}
-a.worm i {
-	vertical-align: middle;
-	margin: 7px
-}
-
-div.attention {   
-	width: 100%;
-	color: black;
-	background-color: #fff;
-	text-align: center; 
-	border: 10px solid #666;
-	z-index:200;
-}
-
-#count {
- width: 100%;
- .logos {
- 		text-align: center;
- 		img {
-		 	height:50px;
-		 	width:50px;
-		}
-	}
- .rubyman, .enemycount {
- 	text-align: center;
- 	color: white;
- 	&.died {
- 	text-decoration:line-through;
- 	}
- }
-}
-#wormfield {
-
-//position:fixed;
-//top:20px;
-//right:-200px;
-	margin: 30px auto;
-	
-}
-.span3 {
-text-align: center;
-}
-
-p.wsad {
-height: 60px;
-}
-
-p.log {
-	font-size: 8px;
-}
-
-table#wormfield td {
-	width: 22px;
-	height: 22px;
-	border: 1px solid #000;
-	text-align: center;
-		font-family: Arial, Helvetica, sans-serif;
-	font-size: 15px;
-	color: #ffffff;
-/*	padding: 10px 30px;*/
-	background: -moz-linear-gradient(
-		top,
-		#7eb6e6 0%,
-		#2e6cb8);
-	background: -webkit-gradient(
-		linear, left top, left bottom, 
-		from(#7eb6e6),		to(#2e6cb8)); 
-	border: 1px solid #ffffff;
 	-moz-box-shadow:
 		2px 2px 3px rgba(000,000,000,0.4),
 		inset 0px 0px 1px rgba(073,094,235,1);
@@ -121,67 +18,188 @@ table#wormfield td {
 	box-shadow:
 		2px 2px 3px rgba(000,000,000,0.4),
 		inset 0px 0px 1px rgba(073,094,235,1);
-	text-shadow:
-		0px -1px 0px rgba(000,000,000,0.2),
-		0px 1px 0px rgba(255,255,255,0.3); 
 }
 
-table#wormfield td:hover {
-	cursor:pointer;
+body {
+	background: $background;
+	font-family: "Trebuchet MS";
+	color: $text;
 }
 
-.selected{    
-}
-
-div.worm {
-	border-radius: 15px;
-/*	background-color: #fff;*/
-	height:80%;
-	width:80%; 
-	
-}
-
-.chicken { 
-	background-color: transparent ; //#fff;
-	height:100%;
-	width:100%
-}
- 
-
-
-img#worm, td img  { 
-	height:100%;
-	width:100%;
-	&.up { 
-		-webkit-transform: rotate(-90deg); 
-		-moz-transform: rotate(-90deg); 
-		-ms-transform: rotate(-90deg); 
-		-o-transform: rotate(-90deg); 
-		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+header {
+	h1 {
+		font-family: "Trebuchet MS";
+		color: $header;
+		text-align: center;
 	}
-	&.down { 
-		-webkit-transform: rotate(90deg); 
-		-moz-transform: rotate(90deg); 
-		-ms-transform: rotate(90deg); 
-		-o-transform: rotate(90deg); 
-		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+#main {
+	position: relative;
+}
+
+#left {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 300px;
+
+	.wsad {
+		width: 60%;
+		margin: 0 auto;
+		text-align: center;
+		&.text {
+			margin-bottom: 25px;
+		}
+		&.w {margin-bottom: 30px;}
+		&.sad {margin-bottom: 10px;}
 	}
-	&.right { 
-		-webkit-transform: rotate(0deg); 
-		-moz-transform: rotate(0deg); 
-		-ms-transform: rotate(0deg); 
-		-o-transform: rotate(0deg); 
-		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+}
+
+#right {
+	position: absolute;
+	left: 400px;
+	top: 50px;
+	bottom: 0;
+}
+
+.infoboard {
+	text-align: center;
+	padding: 30px 0;
+	table {
+		width: 100%;
+		td {
+			width: 30%;
+
+			
+		}
 	}
-	&.left { 
-		-webkit-transform: rotate(-180deg); 
-		-moz-transform: rotate(-180deg); 
-		-ms-transform: rotate(-180deg); 
-		-o-transform: rotate(-180deg); 
-		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=4);
-	} 	
-} 
+}
+
+.wormbuttons {
+	text-align: center;
+	a {
+		@include shadow;
+		display: block;
+		margin: 0 auto 10px;
+		color: #fff;
+		width: 60%;
+		text-decoration: none;
+		padding: 10px 20px;
+		vertical-align: middle;
+		height: 30px;
+		background: $field;
+		color: #555;
 
 
 
- 
+		* {
+			vertical-align: middle;
+		}
+
+		img {
+			width: 20px;
+			height: 20px;
+		}
+	}
+}
+
+.scoreboard {
+	margin: 0 auto;
+
+	#count {
+	 width: 100%;
+	 .logos {
+	 		text-align: center;
+	 		img {
+			 	height:50px;
+			 	width:50px;
+			}
+		}
+	 .rubyman, .enemycount {
+	 	text-align: center;
+	 	color: white;
+	 	&.died {
+	 		text-decoration:line-through;
+	 	}
+	 }
+	}
+}
+
+
+#wormfield {
+	margin: 0 auto;
+	border-collapse: collapse;
+
+	@include shadow;
+
+	td {
+		width: 22px;
+		height: 22px;
+		max-width: 22px;
+		max-height: 22px;
+		border: 1px solid $border;
+		text-align: center;
+		background: $field;
+
+
+		img  { 
+			height:18px;
+			width:18px;
+			margin: 0;
+			padding: 0;
+
+			&.up { 
+				-webkit-transform: rotate(-90deg); 
+				-moz-transform: rotate(-90deg); 
+				-ms-transform: rotate(-90deg); 
+				-o-transform: rotate(-90deg); 
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+			}
+			&.down { 
+				-webkit-transform: rotate(90deg); 
+				-moz-transform: rotate(90deg); 
+				-ms-transform: rotate(90deg); 
+				-o-transform: rotate(90deg); 
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+			}
+			&.right { 
+				-webkit-transform: rotate(0deg); 
+				-moz-transform: rotate(0deg); 
+				-ms-transform: rotate(0deg); 
+				-o-transform: rotate(0deg); 
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+			}
+			&.left { 
+				-webkit-transform: rotate(-180deg); 
+				-moz-transform: rotate(-180deg); 
+				-ms-transform: rotate(-180deg); 
+				-o-transform: rotate(-180deg); 
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=4);
+			}
+		}
+	}
+}
+
+.credits {
+	padding: 50px 0;
+	color: $text;
+	text-align: center;
+	a {
+		text-decoration: none;
+		color: $link;
+	}
+}
+
+div.attention {  
+	@include shadow; 
+	width: 60%;
+	color: $notice;
+	background: $field;
+	text-align: center; 
+	z-index:200;
+	min-height: 30px;
+	padding: 10px 20px;
+	margin: 15px auto;
+}

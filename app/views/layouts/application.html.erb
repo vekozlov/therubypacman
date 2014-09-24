@@ -7,66 +7,80 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
   <div class="main">
-    <header>
-      <h1>Rubyman</h1>
-    </header>
+    <div id="left">
+      <header>
+        <h1>Rubyman</h1>
+      </header>
 
-    <div class='info'>
-      <p class="wsad">Use WSAD buttons to manipulate Worm.</p>
-      <p class="wsad">
-        <%= link_to 'W','#', :class=> 'punch wsad'  %>
-      </p>
-      <p class="wsad">
-        <%= link_to 'S','#', :class=> 'punch wsad'   %>
-        <%= link_to 'A','#', :class=> 'punch wsad'   %>
-        <%= link_to 'D','#', :class=> 'punch wsad'   %>
-      </p>
-    </div>
+      <div class='infoboard'>
+        <p class="wsad text">Use WSAD buttons to manipulate Worm.</p>
+        <p class="wsad w">
+          <%= link_to 'W','#', :class=> 'punch wsad'  %>
+        </p>
+        <p class="wsad sad">
+          <%= link_to 'S','#', :class=> 'punch wsad'   %>
+          <%= link_to 'A','#', :class=> 'punch wsad'   %>
+          <%= link_to 'D','#', :class=> 'punch wsad'   %>
+        </p>
+      </div>
 
-    <div class="wormbuttons">
-      <%= content_tag :a, :href => '#', id: 'theworm', :class=> 'worm btn btn-info'  do  %>
-        <%= image_tag 'worm.png'  %>
-        Start 
-      <% end %>
-      <%= content_tag :a, :href => '#',  id: 'reset', :class=> 'worm btn btn-info' do  %>
-        <i class="icon-refresh"></i>
-        reset 
-      <% end %>
-      <%= content_tag :a, :href => '#',  id: 'end', :class=> 'worm btn btn-info' do   %>
-        <%= image_tag 'blood.png' %>
-        kill 
-      <% end %>
-    </div>
+        
+      <div class="wormbuttons">
+        <%= content_tag :a, :href => '#', id: 'theworm', :class=> 'worm btn btn-info'  do  %>
+          <%= image_tag 'worm.png'  %>
+          Start 
+        <% end %>
+        <%= content_tag :a, :href => '#',  id: 'reset', :class=> 'worm btn btn-info' do  %>
+          <%= image_tag 'worm.png'  %>
+          reset 
+        <% end %>
+        <%= content_tag :a, :href => '#',  id: 'end', :class=> 'worm btn btn-info' do   %>
+          <%= image_tag 'blood.png' %>
+          kill 
+        <% end %>
+      </div>
 
-    <div class="scoreboard">
-      <table id="count">
-        <tr>
-          <td class="logos">
-            <%= image_tag 'worm.png' %>
-            <div class="rubyman">
-              0
-            </div>
-          </td>
-          <td class="logos">
-            <%= image_tag 'meduze.jpg' %>
-            <div class="enemycount">
-              0 
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
+      <div class="scoreboard">
+        <table id="count">
+          <tr>
+            <td class="logos">
+              <%= image_tag 'worm.png' %>
+              <div class="rubyman">
+                0
+              </div>
+            </td>
+            <td class="logos">
+              <%= image_tag 'meduze.png' %>
+              <div class="enemycount">
+                0 
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-    <div class="battlefield">
-      <table id="wormfield"></table>
-    </div>
-
-    <div class="staff">
-      <div id="plugins"></div>
-      <p class="log"></p>
       <div class="attention">Game over!  </div>
+
+
+      <div class="credits">
+        Author: vekozlov
+        <a href="https://github.com/vekozlov">Github</a>
+      </div>
     </div>
+
+    <div id="right">
+      <div class="battlefield">
+        <table id="wormfield"></table>
+      </div>
+
+      <div class="staff">
+        <div id="plugins"></div>
+        <p class="log"></p>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>

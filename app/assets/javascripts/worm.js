@@ -1,15 +1,13 @@
 $(document).ready(function(){ 
 
-  fieldSize = 26
-  rubiesQuantity = 5
-  bombsQuantity = 45
+  fieldSize = 25
+  rubiesQuantity = 45
+  bombsQuantity = 35
   game.prepare(fieldSize) 
   enemyRuns = 0
   killed = 0
-  
+  speed = 200
 })  
-
-
 
 function enableButtons(e){
   $("body").keypress(function (e) { 
@@ -147,7 +145,6 @@ function Game(){
      worm.stop()
      $('#wormfield tr').remove() 
      game.prepare(fieldSize) 
-//     enemyRuns += 1
      enemyRuns = 0
      enemyKilled = 0
      superenemy.stop()
@@ -184,7 +181,7 @@ function Worm(){
   }
 
   this.run = function(){
-    runningWorm = setInterval(go, 200)
+    runningWorm = setInterval(go, speed)
     running = 1
   }
   
@@ -221,7 +218,7 @@ function createCleverEnemy(){
     
     //создать врага на поле
     this.create = function(){ 
-      enemy = '<img class=\"enemy\" src=\'assets/meduze.jpg\' direction=\'up\'>' 
+      enemy = '<img class=\"enemy\" src=\'assets/meduze.png\' direction=\'up\'>' 
       randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
       enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy) 
