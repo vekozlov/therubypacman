@@ -1,7 +1,7 @@
 $(document).ready(function(){ 
   fieldSize = 25
-  rubiesQuantity = 45
-  bombsQuantity = 105
+  rubiesQuantity = 105
+  bombsQuantity = 205
   game.prepare(fieldSize) 
   enemyRuns = 0
   killed = 0
@@ -61,15 +61,16 @@ function go(){
   thisCellXY = myXY(thisCell)
   
   newX = parseInt(thisCellXY.x) + parseInt(step.x)
-    if (newX  == outLineMax){newX = 0} else if (newX == outLineMin){newX = lastId}
   newY = parseInt(thisCellXY.y) + parseInt(step.y)
-    if (newY == outLineMax){newY = 0} else if (newY == outLineMin){newY = lastId}
+
+  if (newX  == outLineMax){newX = 0} else if (newX == outLineMin){newX = lastId}
+  if (newY == outLineMax){newY = 0} else if (newY == outLineMin){newY = lastId}
+
   nextCell = $('table#wormfield tr:eq(' + newY + ') td:eq(' + newX + ')').addClass('selected').removeClass('myshift').html('<img src=\''+pacman_source()+'\' id=\'worm\' class=\''+rotation+'\'>') 
 
   if       (nextCell.hasClass('deadzone')){game.end()}
-  else if  (nextCell.hasClass('foodzone')){worm.eatFood(nextCell)}
-  // если игрок сталкивается с врагом, они оба погибают
-  else if  (nextCell.hasClass('enemy')){pacmanFaceTheEnemy()}
+  else if  (nextCell.hasClass('rubyzone')){worm.eatFood(nextCell)}
+  else if  (nextCell.hasClass('enemy'))   {pacmanFaceTheEnemy()}
 }
 
 function pacmanFaceTheEnemy(){
@@ -100,7 +101,7 @@ function Game(){
     rotation = 'up' 
     worm = '<img class=\''+rotation+'\' src=\''+ pacman_source() +'\' id=\'worm\'>'
     bomb = '<img class=\"bomb\"         src=\''+bomb_source()+'\'>' 
-    ruby = '<img class=\"chicken\"      src=\''+ruby_source()+'\'>'
+    ruby = '<img class=\"rubyzone\"      src=\''+ruby_source()+'\'>'
     startCell.html(worm)
     
     deadZones = []
@@ -111,11 +112,12 @@ function Game(){
       deadZone.html(bomb)  
       deadZones.push(deadZone)}
       
-    rubyZones = [] 
+    rubyZones = []
     for (i = 0; i < rubiesQuantity; i++) { 
       randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
-      rubyZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('rubyzone')
+      rubyZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')')
+      if (!rubyZone.hasClass('deadzone')){ rubyZone.addClass('rubyzone') }
       rubyZone.html(ruby)
       rubyZones.push(rubyZones)
     }
@@ -244,7 +246,7 @@ function createCleverEnemy(){
       y = parseInt(that.y()) 
       direction = that.direction()   
         
-      //определяем новые координаты 
+      //определяем новые координаты
       switch(direction){
         case'up': newY = y - 1; newX = x
         break
@@ -254,7 +256,7 @@ function createCleverEnemy(){
         break
         case'right': newY = y; newX = x + 1
         break
-      }   
+      }
         
       //проверяем не выходят ли новые координаты за поле 
       if (newX  == outLineMax){newX = 0} else if (newX == outLineMin){newX = lastId} 
