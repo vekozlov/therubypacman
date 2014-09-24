@@ -226,7 +226,7 @@ function createCleverEnemy(){
     
     //создать врага на поле
     this.create = function(){ 
-      enemy = '<img class=\"enemy\" src=\'assets/meduze.png\' direction=\'up\'>' 
+      enemy = '<img class=\"enemy\" src=\''+meduze_source()+'\' direction=\'up\'>' 
       randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
       enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy) 
