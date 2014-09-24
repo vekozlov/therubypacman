@@ -6,6 +6,7 @@ $notice: #A62D36;
 
 $border: #bbb;
 $link: #DBDBDA;
+$header: #DBDBDA;
 
 @mixin shadow {
 
@@ -189,6 +190,7 @@ header {
 	a {
 		text-decoration: none;
 		color: $link;
+		display: block;
 	}
 }
 

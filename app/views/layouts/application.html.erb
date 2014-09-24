@@ -29,16 +29,16 @@
         
       <div class="wormbuttons">
         <%= content_tag :a, :href => '#', id: 'theworm', :class=> 'worm btn btn-info'  do  %>
-          <%= image_tag 'worm.png'  %>
+          <% image_tag 'worm.png'  %>
           Start 
         <% end %>
         <%= content_tag :a, :href => '#',  id: 'reset', :class=> 'worm btn btn-info' do  %>
-          <%= image_tag 'worm.png'  %>
-          reset 
+          <% image_tag 'worm.png'  %>
+          Reset 
         <% end %>
         <%= content_tag :a, :href => '#',  id: 'end', :class=> 'worm btn btn-info' do   %>
-          <%= image_tag 'blood.png' %>
-          kill 
+          <% image_tag 'blood.png' %>
+          Kill 
         <% end %>
       </div>
 
@@ -46,7 +46,7 @@
         <table id="count">
           <tr>
             <td class="logos">
-              <%= image_tag 'worm.png' %>
+              <%= image_tag 'pacman.png' %>
               <div class="rubyman">
                 0
               </div>
@@ -67,6 +67,7 @@
       <div class="credits">
         Author: vekozlov
         <a href="https://github.com/vekozlov">Github</a>
+        <a href="v.e.kozlov at gmail dot com">v.e.kozlov (at) gmail (.) com</a>
       </div>
     </div>
 
