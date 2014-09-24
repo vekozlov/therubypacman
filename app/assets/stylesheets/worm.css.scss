@@ -138,6 +138,8 @@ header {
 	td {
 		width: 22px;
 		height: 22px;
+		min-width: 22px;
+		min-height: 22px;
 		max-width: 22px;
 		max-height: 22px;
 		border: 1px solid $border;
@@ -204,4 +206,8 @@ div.attention {
 	min-height: 30px;
 	padding: 10px 20px;
 	margin: 15px auto;
+}
+
+.sources {
+	display: none;
 }
