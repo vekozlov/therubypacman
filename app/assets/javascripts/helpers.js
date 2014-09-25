@@ -8,14 +8,13 @@ function checkCount(){
     else if (enemyPoints <  rubymanPoints ) {message('Congratulations! You win!')                     }
     else if (enemyPoints == rubymanPoints ) {message('You have equal number of points... Try again.') }
   }
-
 }
 
-function countReset(){ 
+function counterReset(){ 
+  $('#count .enemycount, #count .rubyman').removeClass('died')
   $('#count .rubyman').text('0')
   $('#count .enemycount').text('0')  
 }
-
 
 // выводит сообщения в левой парели
 function message(x){

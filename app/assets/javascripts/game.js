@@ -8,7 +8,7 @@ function Game(){
     bombsQuantity: 5
   }
 
-  this.prepare = function(){ 
+  this.prepare = function(){
     game.buildWormField(this.settings.fieldSize) 
     game.populate(this.settings.fieldSize)
     enableButtons()  
@@ -47,36 +47,31 @@ function Game(){
     outLineMin = - 1
     outLineMax = e
     lastId = e - 1
-    // running = 0
-    worm = new Worm()
    } // populate end
 
   this.buildWormField = function (e){ 
+    wormfield = $('table#wormfield')
+    $('#wormfield tr').remove() 
     td =''
     for (i = 0; i < e; i++) {
      td += '<td id=\'' + i + '\'></td>'}  
      
     for (i = 0; i < e; i++) {
-      $('table#wormfield').append('<tr id=\'' + i + '\'>' + td +'</tr>')}
-      
-    wormfield = $('table#wormfield') 
+      wormfield.append('<tr id=\'' + i + '\'>' + td +'</tr>')}
     wormfield.hide()
   } //buildWormField end
   
   this.start = function(){
     this.prepare()
-    wormfield.fadeIn() 
-    createCleverEnemy() 
-    $('#count .rubyman').removeClass('died') 
-    countReset()
+    wormfield.fadeIn()
+    worm = new Worm()
+    createCleverEnemy()
+    counterReset()
   } //start end
   
   this.reset = function(e){ 
      worm.stop()
      superenemy.stop()
-     $('#wormfield tr').remove() 
-     // game.prepare(this.settings.fieldSize) 
-     enemyKilled = 0
      game.start()    
   }// reset end
   

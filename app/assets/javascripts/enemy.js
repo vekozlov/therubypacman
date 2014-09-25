@@ -11,6 +11,7 @@ function createCleverEnemy(){
     this.status = {
       running: 0,
       direction: 'up',
+      killed: 0,
       x: 0,
       y: 0
     }
@@ -22,7 +23,6 @@ function createCleverEnemy(){
       randomY = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
       enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy)
       if (this.status.running < 1){ superenemy.run() }   
-      $('#count .enemycount').removeClass('died')
     }  
     // каждая координата по отдельности
     this.x          = function(){return parseInt($('td.enemy').attr('id'))}
@@ -131,7 +131,7 @@ function createCleverEnemy(){
       this.stop()
       $('td.enemy img').attr('src', 'assets/blood.png') 
       $('#count .enemycount').addClass('died')
-      enemyKilled = 1
+      this.status.killed = 1
       message("Enemy Died. You win!")
     }
     
