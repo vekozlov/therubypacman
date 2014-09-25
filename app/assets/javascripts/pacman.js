@@ -1,5 +1,6 @@
 function Worm(name){
   that = this
+  this.name = name
 
   this.settings = {
     speed: 200
@@ -9,8 +10,6 @@ function Worm(name){
     running: 0,
     killed: 0
   }
-
-  this.name = name
 
   this.eatFood = function(e){
     e.removeClass('rubyzone')

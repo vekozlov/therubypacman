@@ -13,7 +13,8 @@
       direction: 'up',
       killed: 0,
       x: 0,
-      y: 0
+      y: 0,
+      changingDirectionsInitiated: 0
     }
 
     this.init = function(){
@@ -80,9 +81,9 @@
     
     //запустить автоматическое движение врага каждую 1 секунду
     this.run   = function (){
-      runningEnemy = setInterval(this.step, 300);
+      this.runningEnemy = setInterval(this.step, 300);
       this.status.running = 1
-      changingDirectionsInitiated = 0
+      this.status.changingDirectionsInitiated = 0
     }  
              
     //изменить направление движения врага
@@ -125,9 +126,9 @@
     
     //запустить автоматическое изменение направления движения через 2 секунды
     this.intervalChangeDirections = function(){
-      if (changingDirectionsInitiated == 0) {
-        enemyChangesDirections = setInterval(this.changeDirection, 2000)
-        changingDirectionsInitiated = 1
+      if (this.status.changingDirectionsInitiated == 0) {
+        this.enemyChangesDirections = setInterval(this.changeDirection, 2000)
+        this.status.changingDirectionsInitiated = 1
       }
     }
     
@@ -142,16 +143,15 @@
     
     // остановить ход врага
     this.stop = function(){
-      clearInterval(runningEnemy)
-      clearInterval(enemyChangesDirections)
+      clearInterval(this.runningEnemy)
+      clearInterval(this.enemyChangesDirections)
     }
     
     // враг кушает рубин и зарабатывает очко
     this.eats = function(e){
       e.removeClass('rubyzone')
-      enemyCount = parseInt($('#count .enemycount').text()) + 1
-      $('#count .enemycount').text(enemyCount)
-      checkCount()
+      counter.meduzeEats()
+      counter.checkCount()
     }
 
     this.init()

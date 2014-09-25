@@ -20,6 +20,11 @@ function Counter(){
     rubymanCount = parseInt($('#count .rubyman').text()) + 1
     $('#count .rubyman').text(rubymanCount)
   }
+
+  this.meduzeEats = function(){
+    enemyCount = parseInt($('#count .enemycount').text()) + 1
+    $('#count .enemycount').text(enemyCount)
+  }
 }
 
 // выводит сообщения в левой парели
