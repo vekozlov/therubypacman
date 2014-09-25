@@ -21,7 +21,6 @@ function enableActions(){
     switch($(this).attr('id')){
       case'startgame':
         game.start()
-        console.log("ok")
       break
       case'resetgame':
         game.reset()

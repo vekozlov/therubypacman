@@ -5,7 +5,7 @@ function Game(){
   this.settings = {
     fieldSize: 25,
     rubiesQuantity: 5,
-    bombsQuantity: 15
+    bombsQuantity: 205
   }
 
   this.prepare = function(){ 

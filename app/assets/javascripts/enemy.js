@@ -9,7 +9,8 @@ function createCleverEnemy(){
     that = this
 
     this.status = {
-      running: 0
+      running: 0,
+      direction: 'up'
     }
 
     //создать врага на поле
@@ -22,9 +23,9 @@ function createCleverEnemy(){
       $('#count .enemycount').removeClass('died')
     }  
     // каждая координата по отдельности
-    this.x = function(){return $('td.enemy').attr('id')}
-    this.y = function(){return $('td.enemy').parent().attr('id')} 
-    this.direction = function(){return $('td.enemy img').attr('direction')}
+    this.x          = function(){return $('td.enemy').attr('id')}
+    this.y          = function(){return $('td.enemy').parent().attr('id')} 
+    this.direction  = function(){return $('td.enemy img').attr('direction')}
 
     // один шаг врага
     this.step = function(){ 
@@ -32,10 +33,10 @@ function createCleverEnemy(){
       // определяем координаты текущего положения 
       x = parseInt(that.x())
       y = parseInt(that.y()) 
-      direction = that.direction()   
+      that.status.direction = that.direction()   
         
       //определяем новые координаты
-      switch(direction){
+      switch(that.status.direction){
         case'up': newY = y - 1; newX = x
         break
         case'down': newY = y + 1; newX = x
@@ -89,8 +90,9 @@ function createCleverEnemy(){
     // НО! он меняет направление один раз. поэтому если в измененном направлении тоже есть бомба,
     // т.е. он попал в "коробочку" - он наступит на нее.       
     this.avoidBomb = function(){
-      currentEnemyDirection = $('td.enemy img').attr('direction') 
-      
+      currentEnemyDirection = $('td.enemy img').attr('direction')
+      console.log("!")
+
       // определяем новое безопасное направление движения, где нет бомбы
       for (i = 0; i < directions.length; i++){
         if (directions[i] != currentEnemyDirection){
