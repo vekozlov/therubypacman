@@ -90,26 +90,20 @@ function createCleverEnemy(){
     // НО! он меняет направление один раз. поэтому если в измененном направлении тоже есть бомба,
     // т.е. он попал в "коробочку" - он наступит на нее.       
     this.avoidBomb = function(){
-      currentEnemyDirection = $('td.enemy img').attr('direction')
-      console.log("!")
-
       // определяем новое безопасное направление движения, где нет бомбы
       for (i = 0; i < directions.length; i++){
-        if (directions[i] != currentEnemyDirection){
-          safeDirectionNumber = i
+        if (directions[i] != that.status.direction){
+          that.status.direction = directions[i]
           break
         }
       }     
-      
-      $('td.enemy img').attr('direction', directions[safeDirectionNumber]);
-      
+
       // определяем координаты текущего положения 
       x = parseInt(this.x())
       y = parseInt(this.y())
-      direction = this.direction()   
-          
+      
       //определяем новые координаты
-      switch(direction){
+      switch(that.status.direction){
         case'up': newY = y - 1; newX = x
         break
         case'down': newY = y + 1; newX = x

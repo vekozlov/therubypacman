@@ -76,7 +76,7 @@ function Game(){
      worm.stop()
      superenemy.stop()
      $('#wormfield tr').remove() 
-     game.prepare(this.settings.fieldSize) 
+     // game.prepare(this.settings.fieldSize) 
      enemyKilled = 0
      game.start()    
   }// reset end
