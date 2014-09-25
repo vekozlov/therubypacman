@@ -4,7 +4,7 @@ function Game(){
 
   this.settings = {
     fieldSize: 25,
-    rubiesQuantity: 145,
+    rubiesQuantity: 1,
     bombsQuantity: 5
   }
 
@@ -59,33 +59,42 @@ function Game(){
     for (i = 0; i < e; i++) {
       wormfield.append('<tr id=\'' + i + '\'>' + td +'</tr>')}
     wormfield.hide()
+    wormfield.fadeIn()
   } //buildWormField end
   
   this.start = function(){
     this.prepare()
-    wormfield.fadeIn()
-    worm = new Worm()
-    createCleverEnemy()
-    counterReset()
+    worm = new Worm('Mr. Pacman')
+    meduze = new Enemy('Mr. Meduze')
+    counter = new Counter()
   } //start end
   
   this.reset = function(e){ 
-     worm.stop()
-     superenemy.stop()
-     game.start()    
+    worm.stop()
+    meduze.stop()
+    game.start()
+    counter.reset()
   }// reset end
   
   this.end = function(e){ 
     worm.kill()
+    meduze.stop()
   }  
-  
-  this.victory = function(){
-    message('Congratulations! You win!')
-    worm.stop()
-  }
-}
 
-function pacmanFaceTheEnemy(){
-  superenemy.dies()
-  worm.kill()
+  this.stop = function(){
+    worm.stop()
+    meduze.stop()
+  }
+  
+  this.wormWins = function(){
+    message('Congratulations'+ worm.name + '! You win!')
+  }
+
+  this.meduzeWins = function (){
+    message('You loose. Try again.')   
+  }
+
+  this.equalPointsResult = function(){
+    message('You have equal number of points... Try again.') 
+  }
 }

@@ -4,10 +4,10 @@
 //  б. сделать возможность создания 2-3-5 врагов одновременно
 //========================================================================
 
-function createCleverEnemy(){
+// function createCleverEnemy(){
   function Enemy(name){
     that = this
-
+    this.name = name
     this.status = {
       running: 0,
       direction: 'up',
@@ -16,13 +16,18 @@ function createCleverEnemy(){
       y: 0
     }
 
+    this.init = function(){
+      this.create()  
+      this.intervalChangeDirections()
+    }
+
     //создать врага на поле
     this.create = function(){ 
       enemy = '<img class=\"enemy\" src=\''+meduze_source()+'\'>' 
       randomX = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
       enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy)
-      if (this.status.running < 1){ superenemy.run() }   
+      if (this.status.running < 1){ this.run() }   
     }  
     // каждая координата по отдельности
     this.x          = function(){return parseInt($('td.enemy').attr('id'))}
@@ -148,10 +153,7 @@ function createCleverEnemy(){
       $('#count .enemycount').text(enemyCount)
       checkCount()
     }
-       
-  } // Enemy object End 
-  
-  superenemy = new Enemy('Mr. Evil')
-  superenemy.create()  
-  superenemy.intervalChangeDirections()
-}
+
+    this.init()
+  } // Enemy object End
+// }

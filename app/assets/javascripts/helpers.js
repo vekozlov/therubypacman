@@ -1,19 +1,25 @@
-function checkCount(){
-  if ($('.rubyzone').length == 0){
-    worm.stop()
-    superenemy.stop()
-    rubymanPoints = $('#count .rubyman').text()
-    enemyPoints   = $('#count .enemycount').text()
-    if      (enemyPoints >  rubymanPoints ) {message('You loose. Try again.')                         }
-    else if (enemyPoints <  rubymanPoints ) {message('Congratulations! You win!')                     }
-    else if (enemyPoints == rubymanPoints ) {message('You have equal number of points... Try again.') }
+function Counter(){
+  this.reset = function(){
+    $('#count .enemycount, #count .rubyman').removeClass('died')
+    $('#count .rubyman').text('0')
+    $('#count .enemycount').text('0') 
   }
-}
 
-function counterReset(){ 
-  $('#count .enemycount, #count .rubyman').removeClass('died')
-  $('#count .rubyman').text('0')
-  $('#count .enemycount').text('0')  
+  this.checkCount = function(){
+    if ($('.rubyzone').length == 0){
+      game.stop()
+      rubymanPoints = $('#count .rubyman').text()
+      enemyPoints   = $('#count .enemycount').text()
+      if      (enemyPoints >  rubymanPoints ) {game.meduzeWins()        }
+      else if (enemyPoints <  rubymanPoints ) {game.wormWins ()         }
+      else if (enemyPoints == rubymanPoints ) {game.equalPointsResult() }
+    }
+  }
+
+  this.wormEats = function(){
+    rubymanCount = parseInt($('#count .rubyman').text()) + 1
+    $('#count .rubyman').text(rubymanCount)
+  }
 }
 
 // выводит сообщения в левой парели

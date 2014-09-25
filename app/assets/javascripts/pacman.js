@@ -1,4 +1,4 @@
-function Worm(){
+function Worm(name){
   that = this
 
   this.settings = {
@@ -10,17 +10,17 @@ function Worm(){
     killed: 0
   }
 
+  this.name = name
+
   this.eatFood = function(e){
     e.removeClass('rubyzone')
-    rubymanCount = parseInt($('#count .rubyman').text()) + 1
-    $('#count .rubyman').text(rubymanCount)
-    checkCount()
-    if ($('#wormfield tr td.rubyzone').length == 0){
-      game.victory()
-    }
+    counter.wormEats()
+    counter.checkCount()
   }
 
   this.go = function (){  
+    if (this.status.killed == 1){return false}
+      
     thisCell = $('table#wormfield td.selected').removeClass('selected myshift').addClass('myshift') 
     $('td.myshift').removeClass('myshift').children('img').attr('id','').attr('direction','').fadeOut(1000).queue(function(){
       $(this).remove() 
@@ -37,7 +37,7 @@ function Worm(){
 
     if       (nextCell.hasClass('deadzone')){game.end()}
     else if  (nextCell.hasClass('rubyzone')){worm.eatFood(nextCell)}
-    else if  (nextCell.hasClass('enemy'))   {pacmanFaceTheEnemy()}
+    else if  (nextCell.hasClass('enemy'))   {worm.pacmanFaceTheEnemy()}
   }
 
   this.run = function(){
@@ -58,5 +58,10 @@ function Worm(){
   this.stop = function(){
     clearInterval(this.runningWorm)
     this.status.running = 0
-  }   
+  } 
+
+  this.pacmanFaceTheEnemy = function(){
+    meduze.dies()
+    worm.kill()
+  }  
 } // Worm end
