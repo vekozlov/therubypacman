@@ -5,7 +5,7 @@ function Game(){
   this.settings = {
     fieldSize: 25,
     rubiesQuantity: 145,
-    bombsQuantity: 135
+    bombsQuantity: 5
   }
 
   this.prepare = function(){ 
@@ -25,8 +25,8 @@ function Game(){
     
     deadZones = []
     for (i = 0; i < this.settings.bombsQuantity; i++) { 
-      randomX = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
-      randomY = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
+      randomX = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1))
+      randomY = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1))
       deadZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('deadzone')
       deadZone.html(bomb)  
       deadZones.push(deadZone)}
