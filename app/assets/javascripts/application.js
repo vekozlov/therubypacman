@@ -6,6 +6,3 @@
 //= require pacman
 //= require enemy
 //= require helpers
-
-$(document).ready(function(){
-})

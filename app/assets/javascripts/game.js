@@ -4,8 +4,8 @@ function Game(){
 
   this.settings = {
     fieldSize: 25,
-    rubiesQuantity: 5,
-    bombsQuantity: 205
+    rubiesQuantity: 145,
+    bombsQuantity: 135
   }
 
   this.prepare = function(){ 
@@ -20,7 +20,7 @@ function Game(){
     rotation = 'up' 
     worm = '<img class=\''+rotation+'\' src=\''+ pacman_source() +'\' id=\'worm\'>'
     bomb = '<img class=\"bomb\"         src=\''+bomb_source()+'\'>' 
-    ruby = '<img class=\"rubyzone\"      src=\''+ruby_source()+'\'>'
+    ruby = '<img class=\"ruby\"      src=\''+ruby_source()+'\'>'
     startCell.html(worm)
     
     deadZones = []
@@ -36,19 +36,18 @@ function Game(){
       randomX = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
       rubyZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')')
-      if (!rubyZone.hasClass('deadzone')){ rubyZone.addClass('rubyzone') }
-      rubyZone.html(ruby)
-      rubyZones.push(rubyZones)
+      // проверка на склеивание зон - если в зоне есть бомба - не ставить туда рубины
+      if (!rubyZone.hasClass('deadzone')){
+        rubyZone.addClass('rubyzone');
+        rubyZone.html(ruby)
+        rubyZones.push(rubyZone)
+      }
     }
-    
-    // проверка на склеивание зон - если одна и та же клетка имеет класс как еда и бомба
-    // оставить что-то одно
-    $('td.rubyzone.deadzone').removeClass('deadzone')
     
     outLineMin = - 1
     outLineMax = e
     lastId = e - 1
-    running = 0
+    // running = 0
     worm = new Worm()
    } // populate end
 

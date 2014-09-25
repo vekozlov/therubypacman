@@ -8,8 +8,8 @@ function enableButtons(e){
     else                      { step = {'x' : 0,  'y' : 0 }}  
     //to start the worm only when WSAD buttons are pressed.
     if(run == 1){
-      running == 0 ? worm.run() : {}
-      running = 1 
+      worm.status.running == 0 ? worm.run() : {}
+      worm.status.running = 1 
     }
   });
 } // enable buttons end
@@ -37,5 +37,5 @@ function enableActions(){
 } // enable actions end
 
 $(document).ready(function(){
-    enableActions()
+  enableActions()
 })

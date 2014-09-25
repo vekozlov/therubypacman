@@ -15,7 +15,7 @@ function Worm(){
     rubymanCount = parseInt($('#count .rubyman').text()) + 1
     $('#count .rubyman').text(rubymanCount)
     checkCount()
-    if ($('#wormfield tr td.rubyzone img').length == 0){
+    if ($('#wormfield tr td.rubyzone').length == 0){
       game.victory()
     }
   }
