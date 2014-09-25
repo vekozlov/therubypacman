@@ -18,10 +18,10 @@ function Game(){
   this.populate = function (e){
     startCell = $('table#wormfield tr:first td:first').addClass('selected')
     rotation = 'up' 
-    worm = '<img class=\''+rotation+'\' src=\''+ pacman_source() +'\' id=\'worm\'>'
+    rubyman = '<img class=\''+rotation+'\' src=\''+ pacman_source() +'\' id=\'worm\'>'
     bomb = '<img class=\"bomb\"         src=\''+bomb_source()+'\'>' 
     ruby = '<img class=\"ruby\"      src=\''+ruby_source()+'\'>'
-    startCell.html(worm)
+    startCell.html(rubyman)
     
     deadZones = []
     for (i = 0; i < this.settings.bombsQuantity; i++) { 
@@ -67,12 +67,13 @@ function Game(){
     worm = new Worm('Mr. Pacman')
     meduze = new Enemy('Mr. Meduze')
     counter = new Counter()
+    helper = new Helper()
+    helper.turnOffStartButton()
   } //start end
   
   this.reset = function(e){ 
-    worm.stop()
-    meduze.stop()
-    game.start()
+    this.stop()
+    this.start()
     counter.reset()
   }// reset end
   

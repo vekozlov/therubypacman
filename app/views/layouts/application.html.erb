@@ -20,15 +20,15 @@
           <%= link_to 'W','#', :class=> 'punch wsad'  %>
         </p>
         <p class="wsad sad">
-          <%= link_to 'S','#', :class=> 'punch wsad'   %>
           <%= link_to 'A','#', :class=> 'punch wsad'   %>
+          <%= link_to 'S','#', :class=> 'punch wsad'   %>
           <%= link_to 'D','#', :class=> 'punch wsad'   %>
         </p>
       </div>
 
         
       <div class="wormbuttons">
-        <%= content_tag :a, :href => '#', id: 'startgame', :class=> 'worm btn btn-info'  do  %>
+        <%= content_tag :a, :href => '#', id: 'startgame', :class=> 'worm btn btn-info enabled'  do  %>
           <% image_tag 'worm.png'  %>
           Start 
         <% end %>

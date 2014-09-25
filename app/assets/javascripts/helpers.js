@@ -1,3 +1,9 @@
+function Helper(){
+  this.turnOffStartButton = function(){
+    $("#startgame").removeClass("enabled").addClass("disabled")    
+  }
+}
+
 function Counter(){
   this.reset = function(){
     $('#count .enemycount, #count .rubyman').removeClass('died')

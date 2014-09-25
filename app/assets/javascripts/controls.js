@@ -20,7 +20,9 @@ function enableActions(){
     //TODO keep this info in the data attributes
     switch($(this).attr('id')){
       case'startgame':
-        game.start()
+        if ($(this).hasClass("enabled")){
+          game.start()
+        }
       break
       case'resetgame':
         game.reset()

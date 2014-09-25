@@ -68,19 +68,6 @@ header {
 		  text-shadow: 1px 1px 0px #939dc2;
 		  -webkit-background-clip: padding-box;
 		}
-
-	  .punch:hover {
-	    text-decoration: none;
-	    cursor: pointer;
-	  }
-	  .punch:active, .punch.pressed {
-	    margin-top: 58px; 
-	  }
-		    
-		a.wsad {
-		  width: 40px;
-		  height: 40px;
-		}
 	}
 }
 
@@ -186,6 +173,18 @@ header {
 
 		&:hover {
 			background: #ccc;
+		}
+
+		&#startgame {
+			&.enabled {
+				background: $field;
+			}
+
+			&.disabled {
+				background: $text;
+		  	box-shadow: 1px 1px 0px #939dc2;
+		  	cursor: default;
+			}
 		}
 	}
 }
