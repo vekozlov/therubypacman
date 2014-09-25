@@ -10,12 +10,14 @@ function createCleverEnemy(){
 
     this.status = {
       running: 0,
-      direction: 'up'
+      direction: 'up',
+      x: 0,
+      y: 0
     }
 
     //создать врага на поле
     this.create = function(){ 
-      enemy = '<img class=\"enemy\" src=\''+meduze_source()+'\' direction=\'up\'>' 
+      enemy = '<img class=\"enemy\" src=\''+meduze_source()+'\'>' 
       randomX = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
       randomY = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
       enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy)
@@ -23,17 +25,15 @@ function createCleverEnemy(){
       $('#count .enemycount').removeClass('died')
     }  
     // каждая координата по отдельности
-    this.x          = function(){return $('td.enemy').attr('id')}
-    this.y          = function(){return $('td.enemy').parent().attr('id')} 
-    this.direction  = function(){return $('td.enemy img').attr('direction')}
+    this.x          = function(){return parseInt($('td.enemy').attr('id'))}
+    this.y          = function(){return parseInt($('td.enemy').parent().attr('id'))} 
 
     // один шаг врага
     this.step = function(){ 
          
       // определяем координаты текущего положения 
-      x = parseInt(that.x())
-      y = parseInt(that.y()) 
-      that.status.direction = that.direction()   
+      x = that.x()
+      y = that.y() 
         
       //определяем новые координаты
       switch(that.status.direction){
@@ -59,9 +59,9 @@ function createCleverEnemy(){
 
       // перемещаем врага на 1 клетку
       enemyOld = $('td.enemy').toggleClass('old').html() 
-      $('tr[id='+newY+'] td[id='+newX+']').toggleClass('new').removeClass('myshift shift').html(enemyOld).toggleClass('enemy new')  
+      $('tr[id='+newY+'] td[id='+newX+']').toggleClass('new').removeClass('myshift shift').html(enemyOld).toggleClass('enemy new')
       $('td.old').removeClass("enemy old").addClass('shift')
-      $('td.shift').children('img').removeClass('enemy').addClass('shift').attr('direction','').fadeOut(1000).queue(function(){
+      $('td.shift').children('img').removeClass('enemy').addClass('shift').fadeOut(1000).queue(function(){
         $(this).parent().removeClass('shift')
         $(this).remove()
       })
@@ -83,7 +83,7 @@ function createCleverEnemy(){
     //изменить направление движения врага
     this.changeDirection = function(){ 
       randomNumber = (Math.floor(Math.random() * (directions.length - 0)) + 0).toString();
-      $('td.enemy img').attr('direction', directions[randomNumber]); 
+      that.status.direction = directions[randomNumber]
     }
         
     // система уклонения от бомб - враг меняет направление, если следующая клетка содержит бомбу
@@ -96,7 +96,7 @@ function createCleverEnemy(){
           that.status.direction = directions[i]
           break
         }
-      }     
+      }
 
       // определяем координаты текущего положения 
       x = parseInt(this.x())

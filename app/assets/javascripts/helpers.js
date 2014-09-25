@@ -22,3 +22,8 @@ function message(x){
   $('.attention').fadeIn('slow')
   $('.attention .content h1').text(x)
 }
+
+//  определяет координаты ячейки, переданной в z
+function myXY(z) { 
+  return {'x': z.attr('id'), 'y': z.parent().attr('id')}
+}
