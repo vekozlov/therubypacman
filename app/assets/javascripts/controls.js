@@ -10,10 +10,6 @@ function enableButtons(e){
     if(run == 1){
       running == 0 ? worm.run() : {}
       running = 1 
-      //if worm dies buttons are being disabled
-      if (killed != 1){
-       // go()
-      } 
     }
   });
 } // enable buttons end
@@ -21,10 +17,11 @@ function enableButtons(e){
 function enableActions(){
   //control buttons
   $('a').click(function(){
-    m = $(this).attr('id')
-    switch(m){
+    //TODO keep this info in the data attributes
+    switch($(this).attr('id')){
       case'startgame':
         game.start()
+        console.log("ok")
       break
       case'resetgame':
         game.reset()
@@ -39,3 +36,7 @@ function enableActions(){
     $(".attention").fadeOut()
   })
 } // enable actions end
+
+$(document).ready(function(){
+    enableActions()
+})

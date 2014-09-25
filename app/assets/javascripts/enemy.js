@@ -8,13 +8,17 @@ function createCleverEnemy(){
   function Enemy(name){
     that = this
 
+    this.status = {
+      running: 0
+    }
+
     //создать врага на поле
     this.create = function(){ 
       enemy = '<img class=\"enemy\" src=\''+meduze_source()+'\' direction=\'up\'>' 
-      randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
-      randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
-      enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy) 
-      if (enemyRuns < 1){ superenemy.run() }   
+      randomX = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
+      randomY = Math.floor(Math.random() * (game.settings.fieldSize - 1 + 1)) + 1
+      enemyPlace = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('enemy').html(enemy)
+      if (this.status.running < 1){ superenemy.run() }   
       $('#count .enemycount').removeClass('died')
     }  
     // каждая координата по отдельности
@@ -71,7 +75,7 @@ function createCleverEnemy(){
     //запустить автоматическое движение врага каждую 1 секунду
     this.run   = function (){
       runningEnemy = setInterval(this.step, 300);
-      enemyRuns = 1
+      this.status.running = 1
       changingDirectionsInitiated = 0
     }  
              

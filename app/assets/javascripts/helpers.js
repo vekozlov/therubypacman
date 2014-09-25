@@ -16,6 +16,7 @@ function countReset(){
   $('#count .enemycount').text('0')  
 }
 
+
 // выводит сообщения в левой парели
 function message(x){
   $('.attention').fadeIn('slow')

@@ -1,13 +1,17 @@
 game = new Game()
   
 function Game(){
-  this.prepare = function(e){ 
-    fieldSize = e
-    game.buildWormField(fieldSize) 
-    game.populate(fieldSize)
+
+  this.settings = {
+    fieldSize: 25,
+    rubiesQuantity: 5,
+    bombsQuantity: 15
+  }
+
+  this.prepare = function(){ 
+    game.buildWormField(this.settings.fieldSize) 
+    game.populate(this.settings.fieldSize)
     enableButtons()  
-    enableActions()
-    $('div.attention').hide()
     directions = ['up','down', 'left','right']; 
     } // prepare end
    
@@ -20,17 +24,17 @@ function Game(){
     startCell.html(worm)
     
     deadZones = []
-    for (i = 0; i < bombsQuantity; i++) { 
-      randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
-      randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
+    for (i = 0; i < this.settings.bombsQuantity; i++) { 
+      randomX = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
+      randomY = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
       deadZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')').addClass('deadzone')
       deadZone.html(bomb)  
       deadZones.push(deadZone)}
       
     rubyZones = []
-    for (i = 0; i < rubiesQuantity; i++) { 
-      randomX = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
-      randomY = Math.floor(Math.random() * (fieldSize - 1 + 1)) + 1
+    for (i = 0; i < this.settings.rubiesQuantity; i++) { 
+      randomX = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
+      randomY = Math.floor(Math.random() * (this.settings.fieldSize - 1 + 1)) + 1
       rubyZone = $('table#wormfield tr:eq('+ randomY +') td:eq('+ randomX +')')
       if (!rubyZone.hasClass('deadzone')){ rubyZone.addClass('rubyzone') }
       rubyZone.html(ruby)
@@ -61,8 +65,8 @@ function Game(){
   } //buildWormField end
   
   this.start = function(){
+    this.prepare()
     wormfield.fadeIn() 
-    killed = 0
     createCleverEnemy() 
     $('#count .rubyman').removeClass('died') 
     countReset()
@@ -72,8 +76,7 @@ function Game(){
      worm.stop()
      superenemy.stop()
      $('#wormfield tr').remove() 
-     game.prepare(fieldSize) 
-     enemyRuns = 0
+     game.prepare(this.settings.fieldSize) 
      enemyKilled = 0
      game.start()    
   }// reset end
@@ -88,26 +91,26 @@ function Game(){
   }
 }
 
-function go(){  
+// function go(){  
 
-  thisCell = $('table#wormfield td.selected').removeClass('selected myshift').addClass('myshift') 
-  $('td.myshift').removeClass('myshift').children('img').attr('id','').attr('direction','').fadeOut(1000).queue(function(){
-    $(this).remove() 
-  }) 
-  thisCellXY = myXY(thisCell)
+//   thisCell = $('table#wormfield td.selected').removeClass('selected myshift').addClass('myshift') 
+//   $('td.myshift').removeClass('myshift').children('img').attr('id','').attr('direction','').fadeOut(1000).queue(function(){
+//     $(this).remove() 
+//   }) 
+//   thisCellXY = myXY(thisCell)
   
-  newX = parseInt(thisCellXY.x) + parseInt(step.x)
-  newY = parseInt(thisCellXY.y) + parseInt(step.y)
+//   newX = parseInt(thisCellXY.x) + parseInt(step.x)
+//   newY = parseInt(thisCellXY.y) + parseInt(step.y)
 
-  if (newX == outLineMax){newX = 0} else if (newX == outLineMin){newX = lastId}
-  if (newY == outLineMax){newY = 0} else if (newY == outLineMin){newY = lastId}
+//   if (newX == outLineMax){newX = 0} else if (newX == outLineMin){newX = lastId}
+//   if (newY == outLineMax){newY = 0} else if (newY == outLineMin){newY = lastId}
 
-  nextCell = $('table#wormfield tr:eq(' + newY + ') td:eq(' + newX + ')').addClass('selected').removeClass('myshift').html('<img src=\''+pacman_source()+'\' id=\'worm\' class=\''+rotation+'\'>') 
+//   nextCell = $('table#wormfield tr:eq(' + newY + ') td:eq(' + newX + ')').addClass('selected').removeClass('myshift').html('<img src=\''+pacman_source()+'\' id=\'worm\' class=\''+rotation+'\'>') 
 
-  if       (nextCell.hasClass('deadzone')){game.end()}
-  else if  (nextCell.hasClass('rubyzone')){worm.eatFood(nextCell)}
-  else if  (nextCell.hasClass('enemy'))   {pacmanFaceTheEnemy()}
-}
+//   if       (nextCell.hasClass('deadzone')){game.end()}
+//   else if  (nextCell.hasClass('rubyzone')){worm.eatFood(nextCell)}
+//   else if  (nextCell.hasClass('enemy'))   {pacmanFaceTheEnemy()}
+// }
 
 function pacmanFaceTheEnemy(){
   superenemy.dies()
